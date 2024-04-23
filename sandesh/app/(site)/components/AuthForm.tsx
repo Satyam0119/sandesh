@@ -8,52 +8,54 @@ import Input from "./Input";
 type Varient = 'LOGIN' | 'REGISTER';
 
 const AuthForm = () => {
-    const [varient,setVarient] = useState<Varient>('LOGIN')
-    const [isLoading,setIsLoading] = useState(false);
+    const [varient, setVarient] = useState<Varient>('LOGIN')
+    const [isLoading, setIsLoading] = useState(false);
 
-    const toggleVarient = useCallback(() =>
-    {
-        if (varient === 'LOGIN'){
-            setVarient('REGISTER');}
-            else{
-                setVarient('LOGIN');
+    const toggleVarient = useCallback(() => {
+        if (varient === 'LOGIN') {
+            setVarient('REGISTER');
         }
-    },[varient]);
-   
-    const {register,
+        else {
+            setVarient('LOGIN');
+        }
+    }, [varient]);
+
+    const { register,
         handleSubmit,
-        formState:{
+        formState: {
             errors
         }
     } = useForm<FieldValues>({
-        defaultValues:{
-            name:'',
-            email:'',
-            password:''
+        defaultValues: {
+            name: '',
+            email: '',
+            password: ''
 
         }
     });
-    const onSubmit: SubmitHandler<FieldValues> = (data) =>{
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
 
-        if (varient === 'REGISTER'){
+        if (varient === 'REGISTER') {
             //Axios Register
         }
-        if (varient === 'LOGIN'){
+        if (varient === 'LOGIN') {
             //NextAuth SignIN 
         }
     }
-    const socialAction = (action:string) => {
+    const socialAction = (action: string) => {
         setIsLoading(true);
         //NextAuth Social SignIn 
     }
-    return(
+    return (
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
             <div className=" bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
                 <form className=" space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                    <input id="email" label="Email" register={register} />
+                    <Input id="email" label="Email"
+                        register={register}
+                        errors={errors} />
                 </form>
-                
+
 
             </div>
         </div>
